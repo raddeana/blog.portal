@@ -40,39 +40,39 @@ router.route("/login").get(function (req, res) {
 })
 
 router.route("/register").get(function (req,res) {
-	res.render("register",{title:'User register'});
+  res.render("register",{title:'User register'});
 }).post(function (req,res) {
-	const User = global.dbHandel.getModel('user')
-	const uname = req.body.uname
-	const upwd = req.body.upwd
+  const User = global.dbHandel.getModel('user')
+  const uname = req.body.uname
+  const upwd = req.body.upwd
 
-	User.findOne({
-	  name: uname,
-	}, function (err, doc) {
-	  if (err) {
-	    res.send(500)
-	    req.session.error = '网络异常错误！'
-	  } else if (doc) {
-	    req.session.error = '用户名已存在！'
-	    res.send(500)
-	  } else {
-	    User.create({
-	      name: uname,
-	      password: upwd,
-	    }, function (err, doc) {
-	      if (err) {
-	        res.send(500)
-	      } else {
-	        req.session.error = '用户名创建成功！'
-	        res.send(200)
-	      }
-	    })
-	  }
-	})
+  User.findOne({
+    name: uname,
+  }, function (err, doc) {
+    if (err) {
+      res.send(500)
+      req.session.error = '网络异常错误！'
+    } else if (doc) {
+      req.session.error = '用户名已存在！'
+      res.send(500)
+    } else {
+      User.create({
+        name: uname,
+        password: upwd,
+      }, function (err, doc) {
+        if (err) {
+	  res.send(500)
+        } else {
+	  req.session.error = '用户名创建成功！'
+	  res.send(200)
+        }
+      })
+    }
+  })
 })
 
 router.get("/forgetpassword",function(req,res){ 
-	res.render("home", { title: 'Home' })
+  res.render("home", { title: 'Home' })
 })
 
 module.exports = router
