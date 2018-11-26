@@ -1,7 +1,7 @@
 ### blog.portal
 blog portal
 
-#### deps
+#### dependencies
 - express
 - redis
 - ejs
