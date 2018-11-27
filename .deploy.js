@@ -1,6 +1,6 @@
 /**
  * 部署配置
- * @author Steudnera
+ * @author Philip
  */
 module.exports = {
   cdn: {
@@ -17,5 +17,5 @@ module.exports = {
     manifest: "",
     folder: "",
   },
-  build: "build",
+  build: "build"
 }
