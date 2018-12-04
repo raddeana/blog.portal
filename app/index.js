@@ -1,54 +1,54 @@
 /**
  * app 入口
- * @Steudnera
+ * @Philip
  */
 
-const express = require('express')
-const path = require('path')
-const logger = require('morgan')
-const cookieParser = require('cookie-parser')
-const bodyParser = require('body-parser')
-const session = require('express-session')
+const express = require("express")
+const path = require("path")
+const logger = require("morgan")
+const cookieParser = require("cookie-parser")
+const bodyParser = require("body-parser")
+const session = require("express-session")
 
-const routes = require('./routes')
-const users = require('./routes/users')
+const routes = require("./routes")
+const users = require("./routes/users")
 
 const app = express()
 
 app.use(session({
-	secret: 'secret',
+	secret: "secret",
 	cookie:{
 		maxAge: 1000 * 60 * 30
-	},
+	}
 }))
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'))
-app.engine("html",require("ejs").__express)
+app.set("views", path.join(__dirname, "views"))
+app.engine("html", require("ejs").__express)
 
 // app.set("view engine", "ejs")
-app.set('view engine', 'html')
+app.set("view engine", "html")
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'))
+app.use(logger("dev"))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, "public")))
 
 app.use(function (req, res, next) {
   const err = req.session.error
-	res.locals.user = req.session.user
+  res.locals.user = req.session.user
 
-	delete req.session.error
-	res.locals.message = ""
+  delete req.session.error
+  res.locals.message = ""
 	
   if (err) {
-    res.locals.message = '<div class="alert alert-danger" style="margin-bottom:20px;color:red;">' + err + '</div>';
+    res.locals.message = "<div class=\"alert alert-danger\" style=\"margin-bottom:20px;color:red;\">" + err + "</div>";
   }
-
-	next()
+	
+  next()
 })
 
 app.use('/', routes)
