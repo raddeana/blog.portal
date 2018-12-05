@@ -35,4 +35,4 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // 请求 cookie 解析
 app.use(cookieParser())
-app.listen(process.env.NODE_ENV === "dev" ? 8080 : 80)
+app.listen(process.env.NODE_ENV === "dev" ? 8080 : 8081)
