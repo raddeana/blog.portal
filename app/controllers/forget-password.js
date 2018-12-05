@@ -1,11 +1,6 @@
 /**
- * 忘记密码
- * @author Philip
- */
-
-/**
  * 发送验证码
- * @ctrl
+ * @Controller
  */
 module.exports.sendVerifyCode = function () {
 
@@ -13,7 +8,7 @@ module.exports.sendVerifyCode = function () {
 
 /**
  * 重设密码
- * @ctrl
+ * @Controller
  */
 module.exports.resetPassword = function () {
 
