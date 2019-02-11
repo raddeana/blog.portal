@@ -3,7 +3,7 @@
  * @Controller
  */
 module.exports.register = function () {
-
+    
 }
 
 /**
