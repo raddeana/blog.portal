@@ -24,6 +24,22 @@ module.exports = {
          
         connection.end()
 
+        return results[0]
+    },
+
+    /**
+     * 注册
+     * @param {object} 用户
+     * @return {object} 返回结果
+     */
+    register: async (user) => {
+        await connection.connect()
+        
+        let { role, username, password } = user
+        let results = connection.query(`insert into user(role, username, password, mobile, email, avatar)values(${role}, ${username}, ${password}, "", "", "");`)
+         
+        connection.end()
+
         return results
     },
 
