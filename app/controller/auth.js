@@ -3,33 +3,50 @@
  * @author Philip
  */
 
-const userDao = require('../dao/user')
-const cache = require('../service/cache')
+const userDao = require("../dao/user")
+const cache = require("../service/cache")
 
 /**
  * 登录
  * @Controller
  */
 module.exports.login = async (req, res) => {
-    let { username, password } = req.body
-    let user = await userDao.login({
+    const { username, password } = req.body
+    const user = await userDao.login({
         username,
         password
     })
 
     if (user) {
+        const token = req.session.id
+
         req.session.user = user
-        
         res.send(200, {
-            token: req.session.id
+            token
         })
 
-        let key = req.session.id
-
-        cache.addUser(key, user)
+        cache.addUser(token, user)
+        cache.expire(token, 60 * 60 * 60)
     } else {
         res.send(403, {
-            message: '用户名或者密码错误'
+            message: "用户名或者密码错误"
+        })
+    }
+}
+
+/**
+ * 根据 token 获取用户信息
+ * @Controller
+ */
+module.exports.getUserByToken = async (req, res) => {
+    const { token } = req.body
+    let user = await cache.findUser(token)
+
+    if (user) {
+        res.send(200, user)
+    } else {
+        res.send(404, {
+            message: "未找到用户"
         })
     }
 }
@@ -38,11 +55,14 @@ module.exports.login = async (req, res) => {
  * 登出
  * @Controller
  */
-module.exports.logout = (req, res) => {
+module.exports.logout = async (req, res) => {
+    const { token } = req.body
+    
     req.session.regenerate()
     req.session.user = null
-    
-	res.redirect("/login")
+    await cache.removeUser(token)
+
+    res.redirect("/login")
 }
 
 /**
@@ -56,6 +76,6 @@ module.exports.remoteLogout = async (req, res) => {
     req.session.user = null
 
     cache.removeUser(user.key)
-    
-	res.redirect("/login")
+
+    res.redirect("/login")
 }

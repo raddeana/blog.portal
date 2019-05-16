@@ -2,12 +2,12 @@
  * 用户 dao
  * @author Philip
  */
-let mysql = require('mysql')
-let connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'admin',
-    password: 'wowcxy2008',
-    database: 'portal'
+const mysql = require("mysql")
+const connection = mysql.createConnection({
+    host: "localhost",
+    user: "admin",
+    password: "wowcxy2008",
+    database: "portal"
 })
 
 module.exports = {
@@ -19,8 +19,8 @@ module.exports = {
     login: async (user) => {
         await connection.connect()
         
-        let { username, password } = user
-        let results = connection.query(`SELECT * from user where username = ${username} and password = ${password}`)
+        const { username, password } = user
+        const results = await connection.query(`SELECT * from user where username = ${username} and password = ${password}`)
          
         connection.end()
 
@@ -35,8 +35,8 @@ module.exports = {
     register: async (user) => {
         await connection.connect()
         
-        let { role, username, password } = user
-        let results = connection.query(`insert into user(role, username, password, mobile, email, avatar)values(${role}, ${username}, ${password}, "", "", "");`)
+        const { role, username, password } = user
+        const results = await connection.query(`insert into user(role, username, password, mobile, email, avatar)values(${role}, ${username}, ${password}, "", "", "");`)
          
         connection.end()
 
@@ -51,8 +51,8 @@ module.exports = {
     modidyPassword: async (user) => {
         await connection.connect()
 
-        let { id, password } = user
-        let results = connection.query(`UPDATE user SET foo = ${password} WHERE id = ${id}`)
+        const { id, password } = user
+        const results = await connection.query(`UPDATE user SET foo = ${password} WHERE id = ${id}`)
          
         connection.end()
 

@@ -2,15 +2,15 @@
  * 注册
  * @author chenxiangyu
  */
-const userDao = require('../dao/user')
+const userDao = require("../dao/user")
 
 /**
  * 注册
  * @Controller
  */
-module.exports.register = async () => {
-    let { username, password, role } = req.body
-    let result = await userDao.register({
+module.exports.register = async (req, res) => {
+    const { username, password, role } = req.body
+    const result = await userDao.register({
         role,
         username,
         password
@@ -18,11 +18,11 @@ module.exports.register = async () => {
 
     if (result) {
         res.send(200, {
-            message: '注册成功'
+            message: "注册成功"
         })
     } else {
         res.send(409, {
-            message: '注册失败，请重试'
+            message: "注册失败，请重试"
         })
     }
 }

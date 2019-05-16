@@ -15,6 +15,7 @@ module.exports = {
     "quotes": [1, "double"],
     "indent": ["error", 4],
     "generator-star-spacing": "off",
+    "no-trailing-spaces": "off",
     "no-debugger": process.env.NODE_ENV === ' production' ? 'error' : 'off'
   }
 }

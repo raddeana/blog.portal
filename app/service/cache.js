@@ -20,9 +20,13 @@ const client = redis.createClient({
  * @return {none}
  */
 module.exports.findUser = async (key) => {
-    let user = await client.get(key)
+    const user = await client.get(key)
     
-    return user
+    if (user) {
+        return JSON.parse(user)
+    } else {
+        return false
+    } 
 }
 
 /**
