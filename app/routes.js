@@ -59,7 +59,7 @@ router.post("/api/sendResetPasswordLink", (req, res) => {
 })
 
 // 重置密码
-router.post("/api/resetpassword", (req, res) => {
+router.post("/api/resetPassword", (req, res) => {
     forgetPassword.resetPassword(req, res)
 })
 
