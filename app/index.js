@@ -11,7 +11,6 @@ const cookieParser = require("cookie-parser")
 const bodyParser = require("body-parser")
 const ejs = require("ejs")
 const routes = require("./routes")
-
 const app = express()
 
 app.use(session({
@@ -29,10 +28,11 @@ app.set("views", path.join(__dirname, "../../web/dist"))
 // 模板设置
 app.use("/", routes)
 
-// 请求 body 解析
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // 请求 cookie 解析
 app.use(cookieParser())
 app.listen(process.env.NODE_ENV === "dev" ? 8080 : 8081)
+
+module.exports = app;

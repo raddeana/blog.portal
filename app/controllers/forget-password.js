@@ -1,36 +1,35 @@
 /**
  * 忘记密码
  * @author chenxiangyu
- */
+*/
+
 const nodemailer = require("nodemailer")
 const ejs = require("ejs")
 const fs = require("fs")
 const path = require("path")
 
-const userDao = require("../dao/user")
+const userDao = require("../daos/user")
 
 /**
  * 重设密码
  * @Controller
  */
-module.exports.modifyPassword = async (req, res) => {
-    const { id, password } = req.body
+module.exports.resetPassword = async (req, res) => {
+    const { bear, password } = req.body
     const result = await userDao.modidyPassword({
-        id,
+        bear,
         password
     })
 
-    if (result) {
-        res.send(200, {
-            message: "修改密码成功"
-        })
-    } else {
-        res.send(404, {
-            message: "未找到该用户"
-        })
-    }
+    const { success, message } = result;
+
+    res.send(200, {
+        success,
+        message
+    })
 }
 
+// 邮件 tansport 实例
 const transporter = nodemailer.createTransport({
     service: "qq",
     port: 465,
@@ -57,11 +56,13 @@ module.exports.sendResetPasswordLink = async (req, res) => {
     const result = await transporter.sendMail(mailOptions)
 
     if (result.error) {
-        res.send(500, {
+        res.send(200, {
+            success: 1,
             message: "发送邮件失败，请重试"
         })
     } else {
         res.send(200, {
+            success: 0,
             message: "邮件发送至邮箱，请查收"
         })
     }

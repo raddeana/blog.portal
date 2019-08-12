@@ -6,29 +6,35 @@
 const express = require("express")
 
 // 控制器
-const auth = require("./controller/auth")
-const forgetPassword = require("./controller/forget-password")
-const verifyCode = require("./controller/verify-code")
-const register = require("./controller/register")
+const auth = require("./controllers/login")
+const forgetPassword = require("./controllers/forget-password")
+const verifyCode = require("./controllers/verify-code")
+const register = require("./controllers/register")
 
+// 路由
 const router = express.Router()
 
+// 登陆页
 router.get("/", (req, res) => {
     res.render("login.html")
 })
 
+// 登录页
 router.get("/login", (req, res) => {
     res.render("login.html")
 })
 
+// 注册页
 router.get("/register", (req, res) => {
     res.render("register.html")
 })
 
+// 忘记密码页
 router.get("/forget-password", (req, res) => {
     res.render("forget-password.html")
 })
 
+// 重置密码页
 router.get("/reset-password", (req, res) => {
     res.render("reset-password.html")
 })

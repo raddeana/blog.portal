@@ -3,8 +3,8 @@
  * @author Philip
  */
 
-const userDao = require("../dao/user")
-const cache = require("../service/cache")
+const userDao = require("../daos/user")
+const cache = require("../services/cache")
 
 /**
  * 登录

@@ -2,7 +2,7 @@
  * 注册
  * @author chenxiangyu
  */
-const userDao = require("../dao/user")
+const userDao = require("../daos/user")
 
 /**
  * 注册
@@ -26,4 +26,3 @@ module.exports.register = async (req, res) => {
         })
     }
 }
-
